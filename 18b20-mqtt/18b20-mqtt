@@ -1,0 +1,38 @@
+#!/usr/bin/python3
+import time
+import paho.mqtt.publish as publish
+from w1thermsensor import W1ThermSensor
+
+pub_topic = 'pimoon/temperature/'
+
+def read_sens():
+  global pub_topic
+  result={}
+
+  for sensor in W1ThermSensor.get_available_sensors():
+    sid_pub_topic=pub_topic+sensor.id[6:]
+    try:
+      result[sid_pub_topic] = sensor.get_temperature()
+    except KeyboardInterrupt:
+      exit()
+    except:
+      result[sid_pub_topic] = 0
+  return result
+
+
+sens_output = ''
+for sensor in W1ThermSensor.get_available_sensors():
+  sens_output = sens_output+sensor.id[6:]+';'
+try:
+  publish.single('pimoon/sensors/', sens_output[:-1], hostname='127.0.0.1', port=1883, retain=True)
+except:
+  pass
+
+while True:
+  received_data = read_sens()
+  for pub_topics in received_data:
+    try:
+      publish.single(pub_topics, received_data[pub_topics], hostname='127.0.0.1', port=1883)
+    except:
+      pass
+  time.sleep(3)
