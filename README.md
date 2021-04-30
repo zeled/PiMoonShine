@@ -18,27 +18,28 @@ https://www.armbian.com/orange-pi-pc-plus/
 
 ## Установка Node-RED и необходимые пакеты
 #### Заходим по SSH на OrangePi под рутом и запускаем:
+```
 bash <(curl -sL https://raw.githubusercontent.com/node-red/linux-installers/master/deb/update-nodejs-and-nodered)
 
 apt-get update&&apt-get upgrade&&apt-get install mosquitto mosquitto-clients nginx
 
 pip3 install paho-mqtt
 pip3 install w1thermsensor
-
+```
 ---
 #### Копируем из папки 18b20-mqtt:
 
-18b20-mqtt в /usr/local/bin/
+>18b20-mqtt в /usr/local/bin/
 
-18b20-mqtt.service в /etc/systemd/system/
+>18b20-mqtt.service в /etc/systemd/system/
 
 #### Копируем из папки nginx:
 
-nodered в /etc/nginx/sites-enabled/
+>nodered в /etc/nginx/sites-enabled/
 
 ---
 #### Запускаем:
-systemctl daemon-reload&&systemctl restart mosquitto 18b20-mqtt nodered nginx
+`systemctl daemon-reload&&systemctl restart mosquitto 18b20-mqtt nodered nginx`
 
 ## Первоначальная Настройка
 
@@ -47,25 +48,25 @@ systemctl daemon-reload&&systemctl restart mosquitto 18b20-mqtt nodered nginx
 Далее в "Управление палитрой"
 
 #### Устанавилваем узлы:
-node-red-contrib-bme280
-
-node-red-contrib-configurable-interval
-
-node-red-contrib-mytimeout
-
-node-red-contrib-opi-gpio
-
-node-red-contrib-simpletime
-
-node-red-contrib-telegrambot
-
-node-red-contrib-ui-led
-
-node-red-contrib-ui-svg
-
-node-red-dashboard
-
-node-red-node-serialport
+>node-red-contrib-bme280
+>
+>node-red-contrib-configurable-interval
+>
+>node-red-contrib-mytimeout
+>
+>node-red-contrib-opi-gpio
+>
+>node-red-contrib-simpletime
+>
+>node-red-contrib-telegrambot
+>
+>node-red-contrib-ui-led
+>
+>node-red-contrib-ui-svg
+>
+>node-red-dashboard
+>
+>node-red-node-serialport
 
 ---
 
